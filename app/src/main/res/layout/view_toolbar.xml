@@ -12,9 +12,10 @@
         android:gravity="center">
 
         <ImageButton
+            android:id="@+id/btn_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/exit_button"
             android:background="@android:color/transparent"
             android:contentDescription="@string/content_description_image_back"/>
 

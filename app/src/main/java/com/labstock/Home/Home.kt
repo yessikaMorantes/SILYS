@@ -13,6 +13,7 @@ class Home : AppCompatActivity() {
 
         val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
         val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
+
         val statusAll =  ItemStatus("Todo", R.color.all_bg_color, R.color.all_text_color)
         val statusApproved = ItemStatus("Aprobado", R.color.approved_bg_color, R.color.approved_text_color)
         val statusPending = ItemStatus("Pendiente", R.color.pending_bg_color, R.color.pending_text_color)
