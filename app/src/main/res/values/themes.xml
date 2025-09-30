@@ -13,18 +13,29 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+<!--    <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
         <item name="boxStrokeColor">@color/font_color</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxBackgroundColor">@color/white</item>
         <item name="android:textColorHint">@color/font_color</item>
         <item name="android:textSize">20sp</item>
+    </style>-->
+    <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+        <item name="boxBackgroundColor">@android:color/white</item>
+        <item name="boxStrokeColor">@color/font_color</item>
+        <item name="android:textColorHint">@color/font_color</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="android:padding">20dp</item>
+
     </style>
 
     <style name="CustomTextView" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">@color/font_color</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/instrument_sans</item>
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">

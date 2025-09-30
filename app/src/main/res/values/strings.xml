@@ -17,15 +17,9 @@
 
     <!-- view_request_description.xml -->
     <string name="text_settled_request">Numero de radicado:</string>
-    <string name="text_number_request">Solicitud:</string>
+    <string name="text_items_approved">Implementos aprobados</string>
+    <string name="text_comments">Comentarios:</string>
     <string name="content_description_image_request">Imagen Laboratorio</string>
-    <string name="text_date_request">Fecha de solicitud:</string>
-    <string name="text_date_approved">Fecha de aprobacion:</string>
-    <string name="text_topic_request">Materia:</string>
-    <string name="text_laboratory_request">Laboratorio:</string>
-    <string name="text_description_request">Motivo:</string>
-
-
 
     <!-- Example text -->
     <string name="example_title">Titulo de ejemplo</string>
@@ -35,11 +29,12 @@
     <string name="example_profile_user">NU</string>
     <string name="example_status">Aprobado</string>
     <string name="example_name_project">Nombre del proyecto</string>
-    <string name="example_id_request">ID de la solicitud</string>
-    <string name="example_date_request">12/09/2025</string>
-    <string name="example_date_approved">12/11/2025</string>
-    <string name="example_topic_request">193505 - Electronica General A</string>
-    <string name="example_laboratory_request">LBROB</string>
-    <string name="example_description_request">Solicitado para el proyecto de electronica que sera presentado en la feria de proyecto de fin de semestre. </string>
+    <string name="example_id_request"><b>Solicitud: </b>ID de la solicitud</string>
+    <string name="example_date_request"><b>Fecha de solicitud: </b>12/09/2025</string>
+    <string name="example_date_approved"><b>Fecha de aprobacion: </b>12/11/2025</string>
+    <string name="example_topic_request"> <b>Materia: </b>193505 - Electronica General A</string>
+    <string name="example_laboratory_request"><b>Laboratorio: </b>LBROB</string>
+    <string name="example_description_request"><b>Motivo: </b>Solicitado para el proyecto de electronica que sera presentado en la feria de proyecto de fin de semestre. </string>
     <string name="example_settled_request">27366DJDYNF</string>
+    <string name="example_item_request">Arduino</string>
 </resources>
