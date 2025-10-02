@@ -37,4 +37,17 @@
     <string name="example_description_request"><b>Motivo: </b>Solicitado para el proyecto de electronica que sera presentado en la feria de proyecto de fin de semestre. </string>
     <string name="example_settled_request">27366DJDYNF</string>
     <string name="example_item_request">Arduino</string>
+    <string name="proyecto">Proyecto</string>
+    <string name="laboratorios">Laboratorios</string>
+    <string name="codigo_de_la_materia">Código de la materia</string>
+    <string name="nombre_de_la_materia">Nombre de la materia</string>
+    <string name="motivo_de_la_solicitud">Motivo de la solicitud</string>
+    <string name="anadir_implementos">Añadir implementos</string>
+    <string name="enviar_solicitud">Enviar solicitud</string>
+    <string name="ingrese_implemento">Ingrese implemento</string>
+
+    <string-array name="labs">
+        <item>Robotica</item>
+        <item>Redes y telecomunicaciones</item>
+    </string-array>
 </resources>

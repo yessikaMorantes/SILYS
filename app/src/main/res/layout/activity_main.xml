@@ -43,69 +43,72 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gl_50">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/curve_container"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="20dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/curve_container"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/CustomEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:hint="@string/hint_input_code"
+                    android:padding="20dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/CustomEditText"
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/CustomTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_input_code">
+                        android:fontFamily="@font/instrument_sans" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/CustomTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/instrument_sans"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/CustomEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_input_dni"
+                    android:padding="20dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/CustomEditText"
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/CustomTextView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_input_dni">
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/CustomTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/CustomEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_input_password"
+                    android:padding="20dp">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/CustomEditText"
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/CustomTextView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_input_password">
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/CustomTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sing_in"
+                    style="@style/CustomButtonStyle"
+                    android:layout_width="300dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:letterSpacing="0"
+                    android:text="@string/text_button_login"
+                    android:textStyle="bold" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_sing_in"
-                        style="@style/CustomButtonStyle"
-                        android:layout_width="300dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
-                        android:letterSpacing="0"
-                        android:text="@string/text_button_login"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </ScrollView>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 
