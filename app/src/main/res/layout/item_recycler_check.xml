@@ -12,5 +12,6 @@
         android:text="@string/example_item_request"
         android:textColor="@color/black"
         app:buttonTint="@color/blue_light"
-        style="@style/Widget.Material3.CompoundButton.CheckBox"/>
+        style="@style/Widget.Material3.CompoundButton.CheckBox"
+        android:textSize="15sp"/>
 </LinearLayout>

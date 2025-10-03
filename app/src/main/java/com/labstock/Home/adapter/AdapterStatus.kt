@@ -27,7 +27,7 @@ class AdapterStatus(private val items: List<ItemStatus>) :
         val item = items[position]
         val drawable = holder.tvItemStatus.background as GradientDrawable
         holder.tvItemStatus.text = item.statusName
-        holder.tvItemStatus.setTextColor(ContextCompat.getColor(holder.itemView.context, item.textColor));
+        holder.tvItemStatus.setTextColor(ContextCompat.getColor(holder.itemView.context, item.textColor))
         drawable.setColor(ContextCompat.getColor(holder.itemView.context, item.bgColor))
     }
 

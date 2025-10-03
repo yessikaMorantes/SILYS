@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:paddingHorizontal="10sp"
         android:paddingVertical="20sp">
-        <!-- android:layout_weight="8"-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +32,7 @@
                     android:ellipsize="end"
                     android:text="@string/example_name_project"
                     android:textColor="@color/base_blue_color"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -43,7 +42,7 @@
                     android:layout_marginStart="3dp"
                     android:text="@string/example_id_request"
                     android:textColor="@color/gray"
-                    android:textSize="12sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:gravity="center_vertical"/>
 
@@ -74,7 +73,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/example_date_request"
                 android:textColor="@color/base_blue_color"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
 
             <TextView
@@ -84,7 +83,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/example_date_approved"
                 android:textColor="@color/base_blue_color"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_topic_request"
@@ -93,7 +92,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/example_topic_request"
                 android:textColor="@color/base_blue_color"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_laboratory_request"
@@ -102,7 +101,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/example_laboratory_request"
                 android:textColor="@color/base_blue_color"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_description_request"
@@ -111,7 +110,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/example_description_request"
                 android:textColor="@color/base_blue_color"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -121,7 +120,7 @@
                 android:textColor="@color/base_blue_color"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_check"
