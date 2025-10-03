@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Labstock">
         <activity
-            android:name=".createrequest.CreateRequest"
+            android:name=".create_request.CreateRequest"
+            android:exported="false" />
+        <activity
+            android:name=".show_request.ShowRequest"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

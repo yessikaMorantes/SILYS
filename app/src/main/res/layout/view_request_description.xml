@@ -41,6 +41,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_settled_request"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"

@@ -32,7 +32,7 @@
     <string name="example_id_request"><b>Solicitud: </b>ID de la solicitud</string>
     <string name="example_date_request"><b>Fecha de solicitud: </b>12/09/2025</string>
     <string name="example_date_approved"><b>Fecha de aprobacion: </b>12/11/2025</string>
-    <string name="example_topic_request"> <b>Materia: </b>193505 - Electronica General A</string>
+    <string name="example_topic_request"><b>Materia: </b>193505 - Electronica General A</string>
     <string name="example_laboratory_request"><b>Laboratorio: </b>LBROB</string>
     <string name="example_description_request"><b>Motivo: </b>Solicitado para el proyecto de electronica que sera presentado en la feria de proyecto de fin de semestre. </string>
     <string name="example_settled_request">27366DJDYNF</string>

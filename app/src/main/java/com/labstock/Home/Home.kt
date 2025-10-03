@@ -6,10 +6,16 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.labstock.createrequest.CreateRequest
+import com.labstock.Home.adapter.AdapterRequest
+import com.labstock.Home.adapter.AdapterStatus
+import com.labstock.Home.adapter.OnRequestClickListener
+import com.labstock.Home.item.ItemRequest
+import com.labstock.Home.item.ItemStatus
+import com.labstock.create_request.CreateRequest
 import com.labstock.R
+import com.labstock.show_request.ShowRequest
 
-class Home : AppCompatActivity() {
+class Home : AppCompatActivity(), OnRequestClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -17,7 +23,6 @@ class Home : AppCompatActivity() {
 
         val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
         val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
-        val rvImplements = findViewById<RecyclerView>(R.id.rv_check)
 
         val statusAll = ItemStatus("Todo", R.color.all_bg_color, R.color.all_text_color)
         val statusApproved =
@@ -40,7 +45,7 @@ class Home : AppCompatActivity() {
             statusDeclined
         )
 
-        val resquest = listOf(
+        val requests = listOf(
             ItemRequest(
                 "SILYS",
                 "191958-LBROB-001",
@@ -93,8 +98,6 @@ class Home : AppCompatActivity() {
             )
         )
 
-        val implementsList: List<String> = listOf("Arduino", "Panel solar", "Jumpers")
-
         rvStatus.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL, false
@@ -105,13 +108,7 @@ class Home : AppCompatActivity() {
             this,
             LinearLayoutManager.VERTICAL, false
         )
-        rvRequest.adapter = AdapterRequest(resquest)
-
-        rvImplements.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL, false
-        )
-        rvImplements.adapter = AdapterCheck(implementsList)
+        rvRequest.adapter = AdapterRequest(requests, this)
     }
 
     fun getImageByLabel(label: String): Int {
@@ -131,5 +128,11 @@ class Home : AppCompatActivity() {
             intent.putExtra("TYPE_VIEW", "create_request")
             startActivity(intent)
         }
+    }
+
+    override fun onRequestClick(item: ItemRequest) {
+        val intent = Intent(this, ShowRequest::class.java)
+        intent.putExtra("item_request", item)
+        startActivity(intent)
     }
 }

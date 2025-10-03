@@ -1,4 +1,4 @@
-package com.labstock.Home
+package com.labstock.Home.adapter
 
 import android.view.LayoutInflater
 import android.view.View

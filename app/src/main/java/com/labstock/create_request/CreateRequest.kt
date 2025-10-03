@@ -1,4 +1,4 @@
-package com.labstock.createrequest
+package com.labstock.create_request
 
 import android.os.Bundle
 import android.widget.ArrayAdapter

@@ -2,43 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home.Home">
+    android:background="@color/base_blue_color"
+    tools:ignore="ContentDescription">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/gl_10"
+        app:layout_constraintBottom_toTopOf="@id/gl_12"
         app:layout_constraintTop_toTopOf="parent">
 
         <include layout="@layout/view_toolbar" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_10"
+        android:id="@+id/gl_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="0dp"
         app:layout_constraintGuide_percent="0.12" />
 
-    <include layout="@layout/view_request_home"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gl_10"
-        android:visibility="visible"/>
-
-<!--
-
     <include layout="@layout/view_request_description"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gl_10"
-        android:visibility="gone"/>
--->
-
+        app:layout_constraintTop_toBottomOf="@id/gl_12"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
