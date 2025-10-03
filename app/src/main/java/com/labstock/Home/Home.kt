@@ -2,17 +2,12 @@ package com.labstock.Home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.labstock.createrequest.CreateRequest
 import com.labstock.R
-import com.labstock.UiUtils
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +17,7 @@ class Home : AppCompatActivity() {
 
         val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
         val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
+        val rvImplements = findViewById<RecyclerView>(R.id.rv_check)
 
         val statusAll = ItemStatus("Todo", R.color.all_bg_color, R.color.all_text_color)
         val statusApproved =
@@ -97,6 +93,8 @@ class Home : AppCompatActivity() {
             )
         )
 
+        val implementsList: List<String> = listOf("Arduino", "Panel solar", "Jumpers")
+
         rvStatus.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.HORIZONTAL, false
@@ -108,6 +106,12 @@ class Home : AppCompatActivity() {
             LinearLayoutManager.VERTICAL, false
         )
         rvRequest.adapter = AdapterRequest(resquest)
+
+        rvImplements.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL, false
+        )
+        rvImplements.adapter = AdapterCheck(implementsList)
     }
 
     fun getImageByLabel(label: String): Int {
