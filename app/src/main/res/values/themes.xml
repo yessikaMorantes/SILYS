@@ -42,4 +42,24 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="CustomButtonStyleRed" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/red</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:insetTop">8dp</item>
+        <item name="android:insetBottom">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="CustomButtonStyleGreen" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/green</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:insetTop">8dp</item>
+        <item name="android:insetBottom">8dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
 </resources>

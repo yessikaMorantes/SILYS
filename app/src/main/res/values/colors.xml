@@ -12,6 +12,8 @@
     <color name="light_gray">#CDCCD0</color>
     <color name="gray">#717182</color>
     <color name="blue_light">#08BDC6</color>
+    <color name="red">#DD2F2F</color>
+    <color name="green">#079A49</color>
 
 
     <color name="all_bg_color">#ADEAE0</color>
