@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
             val api = APIService()
             val response = api.postJson("auth/login", json, this@MainActivity)
 
-            if (response?.optString("accessToken").isNullOrEmpty()
+            if (response.optString("accessToken").isNullOrEmpty()
                 || response.optString("refreshToken").isNullOrEmpty()
             ) {
                 Toast.makeText(this@MainActivity, response?.optString("message"), Toast.LENGTH_SHORT)

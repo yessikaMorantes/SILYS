@@ -30,6 +30,7 @@
                 android:gravity="end"
                 android:layout_gravity="center">
                 <TextView
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/example_name_user"
@@ -38,6 +39,7 @@
                     android:textSize="20sp"/>
 
                 <TextView
+                    android:id="@+id/user_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/example_code_user"
@@ -46,6 +48,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/prefix_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/example_profile_user"

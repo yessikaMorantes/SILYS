@@ -1,9 +1,13 @@
 package com.silys.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,12 +32,52 @@ class Home : AppCompatActivity(), OnRequestClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val rootView = findViewById<View>(android.R.id.content)
-        buttons()
-
         val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
         val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
+        val title = findViewById<TextView>(R.id.title)
+        val subtitle = findViewById<TextView>(R.id.sub_title)
+        val userName = findViewById<TextView>(R.id.user_name)
+        val userCode = findViewById<TextView>(R.id.user_code)
+        val prefixUserName = findViewById<TextView>(R.id.prefix_user_name)
 
-        val statusAll = ItemStatus("Todo", R.color.all_bg_color, R.color.all_text_color)
+        buttons()
+
+
+        rvStatus.layoutManager = LinearLayoutManager(
+            this@Home,
+            LinearLayoutManager.HORIZONTAL, false
+        )
+        lifecycleScope.launch{
+            val response = APIService().getJson("android/home", this@Home)
+            try{
+                title.text = response.optString("title")
+                subtitle.text = response.optString("sub_title")
+                userName.text = response.optString("user_name")
+                userCode.text = response.optString("user_code")
+                prefixUserName.text = response.optString("prefix_user_name")
+
+                val itemStatusArray = response.getJSONArray("item_status")
+                val itemStatusList = mutableListOf<JSONObject>()
+
+                for (i in 0 until itemStatusArray.length()) {
+                    val obj = itemStatusArray.getJSONObject(i)
+                    itemStatusList.add(obj)
+                }
+                rvStatus.adapter = AdapterStatus(itemStatusList)
+            }catch (e: Exception){
+                var message: String = response.optString("message");
+                if(message.isBlank()){
+                    message = response.optString("error");
+                }
+                e.printStackTrace()
+                Toast.makeText(this@Home, message, Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        //"#ADEAE0".toColorInt()
+
+        val statusAll =
+            ItemStatus("Todo", R.color.all_bg_color, R.color.all_text_color)
         val statusApproved =
             ItemStatus("Aprobado", R.color.approved_bg_color, R.color.approved_text_color)
         val statusPending =
@@ -45,14 +89,14 @@ class Home : AppCompatActivity(), OnRequestClickListener {
         val statusDeclined =
             ItemStatus("Rechazado", R.color.declined_bg_color, R.color.declined_text_color)
 
-        val listStatus = listOf(
-            statusApproved,
-            statusPending,
-            statusAll,
-            statusLended,
-            statusReturned,
-            statusDeclined
-        )
+        //val listStatus = listOf(
+        //    statusApproved,
+        //    statusPending,
+        //    statusAll,
+        //    statusLended,
+        //    statusReturned,
+        //    statusDeclined
+        //)
 
         val requests = listOf(
             ItemRequest(
@@ -107,11 +151,7 @@ class Home : AppCompatActivity(), OnRequestClickListener {
             )
         )
 
-        rvStatus.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.HORIZONTAL, false
-        )
-        rvStatus.adapter = AdapterStatus(listStatus)
+
 
         rvRequest.layoutManager = LinearLayoutManager(
             this,
@@ -147,6 +187,7 @@ class Home : AppCompatActivity(), OnRequestClickListener {
                 }
                 val api = APIService()
                 val response = api.postJson("auth/logout", json, this@Home)
+                TokenManager(this@Home).clearTokens()
                 startActivity(Intent(this@Home, MainActivity::class.java))
                 this@Home.finish()
             }
@@ -157,5 +198,13 @@ class Home : AppCompatActivity(), OnRequestClickListener {
         val intent = Intent(this, ShowRequest::class.java)
         intent.putExtra("item_request", item)
         startActivity(intent)
+    }
+
+
+    @SuppressLint("GestureBackNavigation")
+    override fun onBackPressed() {
+        if(false){
+            super.onBackPressed()
+        }
     }
 }

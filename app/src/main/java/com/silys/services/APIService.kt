@@ -1,15 +1,16 @@
 package com.silys.services
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import android.util.Log
+import androidx.compose.animation.scaleOut
 import com.silys.MainActivity
 import com.silys.utils.TokenManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import java.io.*
+import java.io.BufferedWriter
+import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -17,34 +18,59 @@ class APIService {
 
     private val BASE_URL = "https://silys.pavazk.com/api/"
 
-    suspend fun postJson(url: String, json: JSONObject, context: Context): JSONObject? =
+    suspend fun getJson(url: String, context: Context): JSONObject {
+        return connectionManager(url, null, "GET", context)
+    }
+
+    suspend fun postJson(url: String, json: JSONObject, context: Context): JSONObject {
+        return connectionManager(url, json, "POST", context)
+    }
+
+    private suspend fun connectionManager(
+        url: String,
+        json: JSONObject?,
+        method: String,
+        context: Context
+    ): JSONObject =
         withContext(Dispatchers.IO) {
 
             val targetUrl = URL(BASE_URL + url)
             var connection: HttpURLConnection? = null
             val token = TokenManager(context).getAccessToken()
+            var output = true
+            if (method == "GET") {
+                output = false
+            }
 
             try {
                 connection = (targetUrl.openConnection() as HttpURLConnection).apply {
 
-                    requestMethod = "POST"
+                    requestMethod = method
                     connectTimeout = 15000
                     readTimeout = 15000
                     doInput = true
-                    doOutput = true
+                    doOutput = output
                     useCaches = false
 
-                    setRequestProperty("Content-Type", "application/json; charset=UTF-8")
+                    if (method != "GET") {
+                        setRequestProperty("Content-Type", "application/json; charset=UTF-8")
+                    }
                     setRequestProperty("Accept", "application/json")
 
                     if (!token.isNullOrEmpty()) {
                         setRequestProperty("Authorization", "Bearer $token")
                     }
                 }
-
-                BufferedWriter(OutputStreamWriter(connection.outputStream, "UTF-8")).use { writer ->
-                    writer.write(json.toString())
-                    writer.flush()
+                if (method != "GET") {
+                    BufferedWriter(
+                        OutputStreamWriter(
+                            connection.outputStream,
+                            "UTF-8"
+                        )
+                    ).use { writer ->
+                        writer.write(json.toString())
+                        writer.flush()
+                    }
                 }
 
                 val responseCode = connection.responseCode
@@ -53,9 +79,9 @@ class APIService {
                     val newJson = JSONObject().apply {
                         put("refreshToken", TokenManager(context).getRefreshToken())
                     }
+                    Log.i("APIService", "request new token!")
                     val newResponse = postJson("auth/refresh", newJson, context)
-                    if (newResponse == null
-                        || newResponse.optString("accessToken").isEmpty()
+                    if (newResponse.optString("accessToken").isEmpty()
                         || newResponse.optString("refreshToken").isEmpty()
                     ) {
                         TokenManager(context).clearTokens()
@@ -70,10 +96,9 @@ class APIService {
                             newResponse.optString("accessToken"),
                             newResponse.optString("refreshToken")
                         )
-                        return@withContext postJson(url, json, context)
+                        return@withContext connectionManager(url, json, method, context)
                     }
                 }
-
                 val stream = if (responseCode in 200..299) {
                     connection.inputStream
                 } else {
@@ -85,14 +110,17 @@ class APIService {
                 val responseText = stream.bufferedReader().use { it.readText() }
 
                 if (responseText.isEmpty()) return@withContext JSONObject().apply {
-                    put("message", "Error en la conexión")
+                    put("message", "Error en la respuesta")
                 }
 
+                Log.i("APIService", responseText)
                 return@withContext JSONObject(responseText)
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                return@withContext null
+                return@withContext JSONObject().apply {
+                    put("message", "Error en la conexión")
+                }
             } finally {
                 connection?.disconnect()
             }
