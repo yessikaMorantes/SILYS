@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/white"
@@ -13,12 +14,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/layoutTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/curve_container_bottom"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_welcome"
@@ -33,10 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="0dp"
         app:layout_constraintGuide_percent="0.40" />
 
     <LinearLayout
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/base_blue_color"
@@ -44,19 +47,21 @@
         app:layout_constraintTop_toBottomOf="@id/gl_50">
 
         <ScrollView
+            android:id="@+id/scrollForm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/curve_container"
             android:gravity="center"
-            android:orientation="vertical"
             android:padding="20dp">
 
             <LinearLayout
+                android:id="@+id/layoutForm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilCode"
                     style="@style/CustomEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,13 +69,16 @@
                     android:padding="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCode"
                         style="@style/CustomTextView"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/instrument_sans" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDni"
                     style="@style/CustomEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,12 +86,15 @@
                     android:padding="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDni"
                         style="@style/CustomTextView"
+                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPassword"
                     style="@style/CustomEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,22 +102,22 @@
                     android:padding="20dp">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
                         style="@style/CustomTextView"
+                        android:inputType="textPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_sing_in"
+                    android:id="@+id/btnSignIn"
                     style="@style/CustomButtonStyle"
                     android:layout_width="300dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
-                    android:letterSpacing="0"
                     android:text="@string/text_button_login"
                     android:textStyle="bold" />
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
