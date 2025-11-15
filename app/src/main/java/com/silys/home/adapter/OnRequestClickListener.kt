@@ -1,6 +1,6 @@
-package com.labstock.Home.adapter
+package com.silys.home.adapter
 
-import com.labstock.Home.item.ItemRequest
+import com.silys.home.item.ItemRequest
 
 interface OnRequestClickListener {
     fun onRequestClick(item: ItemRequest)

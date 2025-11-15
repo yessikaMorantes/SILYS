@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "labstock"
+rootProject.name = "silys"
 include ':app'

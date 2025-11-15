@@ -1,11 +1,11 @@
-package com.labstock.Home.adapter
+package com.silys.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
-import com.labstock.R
+import com.silys.R
 
 class AdapterCheck(private val items: List<String>) :
     RecyclerView.Adapter<AdapterCheck.MyViewHolder>() {

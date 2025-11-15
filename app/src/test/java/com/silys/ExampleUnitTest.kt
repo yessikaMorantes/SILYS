@@ -1,4 +1,4 @@
-package com.labstock
+package com.silys
 
 import org.junit.Test
 

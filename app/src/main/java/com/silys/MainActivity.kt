@@ -1,10 +1,10 @@
-package com.labstock
+package com.silys
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.google.android.material.button.MaterialButton
-import com.labstock.Home.Home
+import com.silys.home.Home
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

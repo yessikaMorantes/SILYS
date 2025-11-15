@@ -1,24 +1,27 @@
-package com.labstock.Home
+package com.silys.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.labstock.Home.adapter.AdapterRequest
-import com.labstock.Home.adapter.AdapterStatus
-import com.labstock.Home.adapter.OnRequestClickListener
-import com.labstock.Home.item.ItemRequest
-import com.labstock.Home.item.ItemStatus
-import com.labstock.create_request.CreateRequest
-import com.labstock.R
-import com.labstock.show_request.ShowRequest
+import com.silys.home.adapter.AdapterRequest
+import com.silys.home.adapter.AdapterStatus
+import com.silys.home.adapter.OnRequestClickListener
+import com.silys.home.item.ItemRequest
+import com.silys.home.item.ItemStatus
+import com.silys.create_request.CreateRequest
+import com.silys.R
+import com.silys.utils.UIUtils.Companion.showSnackBar
+import com.silys.show_request.ShowRequest
 
 class Home : AppCompatActivity(), OnRequestClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val rootView = findViewById<View>(android.R.id.content)
         buttons()
 
         val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
@@ -109,6 +112,7 @@ class Home : AppCompatActivity(), OnRequestClickListener {
             LinearLayoutManager.VERTICAL, false
         )
         rvRequest.adapter = AdapterRequest(requests, this)
+        rootView.showSnackBar("Has iniciado sesión")
     }
 
     fun getImageByLabel(label: String): Int {

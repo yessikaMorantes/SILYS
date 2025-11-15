@@ -1,4 +1,4 @@
-package com.labstock.create_request
+package com.silys.create_request
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -7,8 +7,8 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.labstock.R
-import com.labstock.UiUtils
+import com.silys.R
+import com.silys.utils.UIUtils
 
 class CreateRequest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +40,10 @@ class CreateRequest : AppCompatActivity() {
             val btnDeleteImplement = row.findViewById<ImageButton>(R.id.btn_delete_implement)
 
             editTextList.add(editText)
-            UiUtils.Companion.animateAddView(row)
+            UIUtils.Companion.animateAddView(row)
 
             btnDeleteImplement.setOnClickListener {
-                UiUtils.Companion.animateRemoveView(container, row, editTextList, editText)
+                UIUtils.Companion.animateRemoveView(container, row, editTextList, editText)
             }
             container.addView(row)
         }

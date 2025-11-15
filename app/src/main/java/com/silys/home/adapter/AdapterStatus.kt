@@ -1,4 +1,4 @@
-package com.labstock.Home.adapter
+package com.silys.home.adapter
 
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.labstock.Home.item.ItemStatus
-import com.labstock.R
+import com.silys.home.item.ItemStatus
+import com.silys.R
 
 class AdapterStatus(private val items: List<ItemStatus>) :
     RecyclerView.Adapter<AdapterStatus.MyViewHolder>() {

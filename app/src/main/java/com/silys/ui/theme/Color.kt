@@ -1,4 +1,4 @@
-package com.labstock.ui.theme
+package com.silys.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

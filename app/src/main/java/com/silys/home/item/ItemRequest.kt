@@ -1,4 +1,4 @@
-package com.labstock.Home.item
+package com.silys.home.item
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 

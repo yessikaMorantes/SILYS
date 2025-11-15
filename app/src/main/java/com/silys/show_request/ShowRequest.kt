@@ -1,20 +1,15 @@
-package com.labstock.show_request
+package com.silys.show_request
 
 import android.os.Bundle
 import android.text.Html
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.labstock.Home.adapter.AdapterCheck
-import com.labstock.Home.item.ItemRequest
-import com.labstock.R
-import com.labstock.UiUtils
+import com.silys.home.adapter.AdapterCheck
+import com.silys.home.item.ItemRequest
+import com.silys.R
 
 class ShowRequest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

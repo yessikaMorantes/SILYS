@@ -1,4 +1,4 @@
-package com.labstock.Home.adapter
+package com.silys.home.adapter
 
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.labstock.Home.item.ItemRequest
-import com.labstock.R
+import com.silys.home.item.ItemRequest
+import com.silys.R
 
 class AdapterRequest(private val items: List<ItemRequest>,
                      private val listener: OnRequestClickListener) :
