@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/outline_view"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="10sp"
+        android:paddingVertical="20sp"
+        android:layout_weight="7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_project_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:text="@string/example_name_project"
+                    android:textColor="@color/base_blue_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_request_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:text="@string/example_id_request"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_lab_request"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_weight="2.5"
+                android:contentDescription="@string/content_description_image_request"
+                android:src="@drawable/chip" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_date_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/example_date_request"
+                android:textColor="@color/base_blue_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_date_approved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/example_date_approved"
+                android:textColor="@color/base_blue_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_topic_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/example_topic_request"
+                android:textColor="@color/base_blue_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_laboratory_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/example_laboratory_request"
+                android:textColor="@color/base_blue_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_description_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/example_description_request"
+                android:textColor="@color/base_blue_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/text_items_approved"
+                android:textColor="@color/base_blue_color"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_recycler_check" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_marginVertical="20dp"
+        android:layout_weight="2"
+        android:background="@drawable/outline_view"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="10sp"
+        android:paddingVertical="20sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@string/text_comments"
+            android:textColor="@color/base_blue_color"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/CustomTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_icon"
+        android:background="@android:color/transparent"
+        android:layout_gravity="right"
+        android:visibility="gone"/>
+</LinearLayout>
