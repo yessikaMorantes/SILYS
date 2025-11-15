@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.silys.MainActivity
 import com.silys.home.adapter.AdapterRequest
 import com.silys.home.adapter.AdapterStatus
 import com.silys.home.adapter.OnRequestClickListener
@@ -14,8 +16,12 @@ import com.silys.home.item.ItemRequest
 import com.silys.home.item.ItemStatus
 import com.silys.create_request.CreateRequest
 import com.silys.R
+import com.silys.services.APIService
 import com.silys.utils.UIUtils.Companion.showSnackBar
 import com.silys.show_request.ShowRequest
+import com.silys.utils.TokenManager
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class Home : AppCompatActivity(), OnRequestClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,6 +137,19 @@ class Home : AppCompatActivity(), OnRequestClickListener {
             val intent = Intent(this, CreateRequest::class.java)
             intent.putExtra("TYPE_VIEW", "create_request")
             startActivity(intent)
+        }
+
+        val btnLogout = findViewById<ImageButton>(R.id.btn_toolbar)
+        btnLogout?.setOnClickListener {
+            lifecycleScope.launch {
+                val json = JSONObject().apply {
+                    put("refreshToken", TokenManager(this@Home).getRefreshToken())
+                }
+                val api = APIService()
+                val response = api.postJson("auth/logout", json, this@Home)
+                startActivity(Intent(this@Home, MainActivity::class.java))
+                this@Home.finish()
+            }
         }
     }
 
