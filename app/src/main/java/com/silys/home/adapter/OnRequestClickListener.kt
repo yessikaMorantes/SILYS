@@ -1,7 +1,7 @@
 package com.silys.home.adapter
 
-import com.silys.home.item.ItemRequest
+import org.json.JSONObject
 
 interface OnRequestClickListener {
-    fun onRequestClick(item: ItemRequest)
+    fun onRequestClick(item: JSONObject)
 }

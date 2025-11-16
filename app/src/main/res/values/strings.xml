@@ -23,6 +23,7 @@
 
     <!-- Example text -->
     <string name="example_title">Titulo de ejemplo</string>
+    <string name="no_requests">No hay solicitudes aún…</string>
     <string name="example_subtitle">Descripcion del titulo para obtener mas informacion</string>
     <string name="example_name_user">Nombre Usuario</string>
     <string name="example_code_user">Código</string>

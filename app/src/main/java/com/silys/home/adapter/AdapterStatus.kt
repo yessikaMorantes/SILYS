@@ -29,7 +29,7 @@ class AdapterStatus(private val items: List<JSONObject>) :
         val item = items[position]
         val drawable = holder.tvItemStatus.background as GradientDrawable
         holder.tvItemStatus.text = item.optString("state_name")
-        holder.tvItemStatus.setTextColor(item.optString("status_text_color").toColorInt()/*ContextCompat.getColor(holder.itemView.context, item.textColor)*/)
+        holder.tvItemStatus.setTextColor(item.optString("status_text_color").toColorInt())
         drawable.setColor(item.optString("status_color").toColorInt())
     }
 

@@ -2,8 +2,7 @@ package com.silys
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
@@ -11,6 +10,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.silys.home.Home
 import com.silys.services.APIService
 import com.silys.utils.TokenManager
+import com.silys.utils.UIUtils.Companion.showSnackBar
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
@@ -20,11 +20,12 @@ class MainActivity : ComponentActivity() {
     private lateinit var etDni: TextInputEditText
     private lateinit var etPassword: TextInputEditText
     private lateinit var btnSignIn: MaterialButton
+    lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        rootView = findViewById<View>(android.R.id.content)
         initViews()
         setupListeners()
     }
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
             val pass = etPassword.text.toString().trim()
 
             if (code.isEmpty() || dni.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
+                rootView.showSnackBar("Todos los campos son obligatorios")
                 return@setOnClickListener
             }
 
@@ -65,8 +66,7 @@ class MainActivity : ComponentActivity() {
             if (response.optString("accessToken").isNullOrEmpty()
                 || response.optString("refreshToken").isNullOrEmpty()
             ) {
-                Toast.makeText(this@MainActivity, response?.optString("message"), Toast.LENGTH_SHORT)
-                    .show()
+                rootView.showSnackBar(response.optString("message"))
             } else {
                 val tokenManager = TokenManager(this@MainActivity)
                 tokenManager.saveTokens(

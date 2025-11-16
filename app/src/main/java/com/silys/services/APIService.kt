@@ -62,6 +62,7 @@ class APIService {
                     }
                 }
                 if (method != "GET") {
+                    Log.i("APIService send", json.toString())
                     BufferedWriter(
                         OutputStreamWriter(
                             connection.outputStream,
@@ -113,7 +114,7 @@ class APIService {
                     put("message", "Error en la respuesta")
                 }
 
-                Log.i("APIService", responseText)
+                Log.i("APIService receive", responseText)
                 return@withContext JSONObject(responseText)
 
             } catch (e: Exception) {

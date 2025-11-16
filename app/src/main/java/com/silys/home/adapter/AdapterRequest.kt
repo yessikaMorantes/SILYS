@@ -1,5 +1,6 @@
 package com.silys.home.adapter
 
+import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.silys.home.item.ItemRequest
 import com.silys.R
+import org.json.JSONObject
 
-class AdapterRequest(private val items: List<ItemRequest>,
-                     private val listener: OnRequestClickListener) :
+class AdapterRequest(private val items: List<JSONObject>,
+                     private val listener: OnRequestClickListener,
+    private val context: Context) :
     RecyclerView.Adapter<AdapterRequest.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,24 +41,22 @@ class AdapterRequest(private val items: List<ItemRequest>,
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
-        holder.tvProjectName.text = item.projectName
-        holder.dateRequest.text = item.date
-        holder.tvTopicsRequest.text = item.topic
-        holder.tvLabRequest.text = item.lab
-        holder.tvDescription.text = item.description
-        holder.tvRequestId.text = item.requestCode
-        holder.imgLabRequest.setImageResource(item.img)
+        holder.tvProjectName.text = item.optString("name")
+        holder.dateRequest.text = item.optString("date_request")
+        holder.tvTopicsRequest.text = item.optString("topic_name")
+        holder.tvLabRequest.text = item.optString("laboratory_name")
+        holder.tvDescription.text = item.optString("description")
+        holder.tvRequestId.text = item.optString("code")
+        Glide.with(context)
+            .load(item.optString("laboratory_img"))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into( holder.imgLabRequest)
 
         //Status
         val drawable = holder.tvStatus.background as GradientDrawable
-        holder.tvStatus.text = item.status.statusName
-        holder.tvStatus.setTextColor(
-            ContextCompat.getColor(
-                holder.itemView.context,
-                item.status.textColor
-            )
-        );
-        drawable.setColor(ContextCompat.getColor(holder.itemView.context, item.status.bgColor))
+        holder.tvStatus.text = item.optString("state_name")
+        holder.tvStatus.setTextColor(item.optString("status_text_color").toColorInt());
+        drawable.setColor(item.optString("status_color").toColorInt())
 
         fun Int.toPx(): Int =
             (this * holder.itemView.context.resources.displayMetrics.density).toInt()
