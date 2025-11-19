@@ -57,9 +57,9 @@
             android:layout_marginHorizontal="15dp"
             android:background="@drawable/outline_view"
             android:orientation="vertical"
+            android:paddingVertical="5dp"
             app:layout_constraintBottom_toTopOf="@id/gl_85"
-            app:layout_constraintTop_toBottomOf="@id/gl_23"
-            android:paddingVertical="5dp">
+            app:layout_constraintTop_toBottomOf="@id/gl_23">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -88,27 +88,23 @@
                             android:fontFamily="@font/instrument_sans" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/dp_labs_list"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="300dp"
+                    <Spinner
+                        android:id="@+id/spinner_laboratories"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="20dp"
-                        android:hint="@string/laboratorios"
-                        android:textColorHint="@color/font_color"
-                        app:boxStrokeColor="@color/font_color"
-                        app:boxStrokeWidthFocused="0.7dp"
-                        app:endIconDrawable="@drawable/arrow_down">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/actv_labs_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:entries="@array/labs"
-                            android:textColor="@color/font_color"
-                            tools:ignore="LabelFor" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/white"/>
+                    <Spinner
+                        android:id="@+id/spinner_topics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/white"/>
+<!--
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/CustomEditText"
@@ -139,6 +135,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/instrument_sans" />
                     </com.google.android.material.textfield.TextInputLayout>
+-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/CustomEditText"

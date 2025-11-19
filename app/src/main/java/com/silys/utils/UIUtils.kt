@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import com.google.android.material.R
 import com.google.android.material.snackbar.Snackbar
@@ -30,8 +31,8 @@ class UIUtils {
         fun animateRemoveView(
             container: ViewGroup,
             view: View,
-            editTextList: MutableList<EditText>,
-            editText: EditText,
+            spinnerList: MutableList<Spinner>,
+            spinner: Spinner,
             duration: Long = 300
         ) {
             view.animate()
@@ -40,7 +41,7 @@ class UIUtils {
                 .setDuration(duration)
                 .withEndAction {
                     container.removeView(view)
-                    editTextList.remove(editText)
+                    spinnerList.remove(spinner)
                     container.requestFocus()
                 }
                 .start()

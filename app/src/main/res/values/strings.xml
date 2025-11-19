@@ -47,8 +47,21 @@
     <string name="enviar_solicitud">Enviar solicitud</string>
     <string name="ingrese_implemento">Ingrese implemento</string>
 
+    <string-array name="implement_list">
+        <item>Arduino Uno</item>
+        <item>Panel Solar</item>
+        <item>Protoboard</item>
+    </string-array>
+
     <string-array name="labs">
         <item>Robotica</item>
         <item>Redes y telecomunicaciones</item>
     </string-array>
+
+    <string-array name="topics">
+        <item>193505A - Electronica General A</item>
+        <item>193907A - Tópicos Avanzados en Ingenie</item>
+        <item>193904A - Proyecto Integrador III</item>
+    </string-array>
+
 </resources>
