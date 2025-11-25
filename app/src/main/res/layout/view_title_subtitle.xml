@@ -21,6 +21,5 @@
         android:layout_height="match_parent"
         android:text="@string/example_subtitle"
         android:textColor="@color/gray"
-        android:textSize="15sp"
-        android:gravity="center"/>
+        android:textSize="15sp"/>
 </LinearLayout>

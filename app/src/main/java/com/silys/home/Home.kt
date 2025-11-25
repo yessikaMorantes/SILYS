@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,37 +21,34 @@ import com.silys.home.adapter.OnRequestClickListener
 import com.silys.services.APIService
 import com.silys.utils.TokenManager
 import com.silys.utils.UIUtils.Companion.showSnackBar
+import com.silys.utils.Utils
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class Home : AppCompatActivity(), OnRequestClickListener {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_screen)
-        findViewById<ImageView>(R.id.img_lab_ufpso).visibility = View.GONE
+        setContentView(R.layout.activity_home)
+        val rootView = findViewById<View>(android.R.id.content)
+        val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
+        val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
+        val title = findViewById<TextView>(R.id.title)
+        val subtitle = findViewById<TextView>(R.id.sub_title)
+        val userName = findViewById<TextView>(R.id.user_name)
+        val userCode = findViewById<TextView>(R.id.user_code)
+        val prefixUserName = findViewById<TextView>(R.id.prefix_user_name)
+
+        buttons()
+
+        rvStatus.layoutManager = LinearLayoutManager(
+            this@Home,
+            LinearLayoutManager.HORIZONTAL, false
+        )
+        rvRequest.layoutManager = LinearLayoutManager(
+            this@Home,
+            LinearLayoutManager.VERTICAL, false
+        )
         lifecycleScope.launch{
-            setContentView(R.layout.activity_home)
-            val rootView = findViewById<View>(android.R.id.content)
-            val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
-            val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
-            val title = findViewById<TextView>(R.id.title)
-            val subtitle = findViewById<TextView>(R.id.sub_title)
-            val userName = findViewById<TextView>(R.id.user_name)
-            val userCode = findViewById<TextView>(R.id.user_code)
-            val prefixUserName = findViewById<TextView>(R.id.prefix_user_name)
-
-            buttons()
-
-
-            rvStatus.layoutManager = LinearLayoutManager(
-                this@Home,
-                LinearLayoutManager.HORIZONTAL, false
-            )
-            rvRequest.layoutManager = LinearLayoutManager(
-                this@Home,
-                LinearLayoutManager.VERTICAL, false
-            )
             val response = APIService().getJson("android/home", this@Home)
             try{
                 title.text = response.optString("title")
@@ -62,29 +58,18 @@ class Home : AppCompatActivity(), OnRequestClickListener {
                 prefixUserName.text = response.optString("prefix_user_name")
 
 
-                //Status
-                val itemStatusArray = response.getJSONArray("item_status")
-                val itemStatusList = mutableListOf<JSONObject>()
-
-                for (i in 0 until itemStatusArray.length()) {
-                    val obj = itemStatusArray.getJSONObject(i)
-                    itemStatusList.add(obj)
-                }
-                rvStatus.adapter = AdapterStatus(itemStatusList)
+                rvStatus.adapter = AdapterStatus(Utils().convertJSONArrayToListJSON(response.getJSONArray("item_status")))
                 //Requests
-                val itemRequestArray = response.getJSONArray("requests")
-                val itemRequestList = mutableListOf<JSONObject>()
 
-                for (i in 0 until itemRequestArray.length()) {
-                    val obj = itemRequestArray.getJSONObject(i)
-                    itemRequestList.add(obj)
-                }
+                val itemRequestList = Utils().convertJSONArrayToListJSON(response.getJSONArray("requests"))
                 if(!itemRequestList.isEmpty()){
                     rvRequest.adapter = AdapterRequest(itemRequestList, this@Home, this@Home)
                 } else {
                     rvRequest.visibility = View.GONE
                     findViewById<LottieAnimationView>(R.id.lottie_empty).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.text_empty).visibility = View.VISIBLE
+                    val msg = findViewById<TextView>(R.id.text_empty)
+                    msg.visibility = View.VISIBLE
+                    msg.text = response.optString("msg")
                 }
             }catch (e: Exception){
                 var message: String = response.optString("message");

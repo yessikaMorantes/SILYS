@@ -32,23 +32,16 @@
         app:layout_constraintTop_toBottomOf="@id/gl_12">
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="20dp"
-            app:layout_constraintBottom_toTopOf="@id/gl_23"
+            android:padding="10dp"
+            android:gravity="start"
+            android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
 
             <include layout="@layout/view_title_subtitle" />
         </LinearLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="0dp"
-            app:layout_constraintGuide_percent="0.13" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,13 +52,13 @@
             android:orientation="vertical"
             android:paddingVertical="5dp"
             app:layout_constraintBottom_toTopOf="@id/gl_85"
-            app:layout_constraintTop_toBottomOf="@id/gl_23">
+            app:layout_constraintTop_toBottomOf="@id/linear">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/gl_85"
-                app:layout_constraintTop_toBottomOf="@id/gl_23"
+                app:layout_constraintTop_toBottomOf="parent"
                 tools:ignore="UselessParent">
 
                 <LinearLayout
@@ -104,38 +97,6 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginStart="20dp"
                         android:background="@color/white"/>
-<!--
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/CustomEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/codigo_de_la_materia"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="10dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/CustomTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/instrument_sans" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/CustomEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/nombre_de_la_materia"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="10dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            style="@style/CustomTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/instrument_sans" />
-                    </com.google.android.material.textfield.TextInputLayout>
--->
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/CustomEditText"
