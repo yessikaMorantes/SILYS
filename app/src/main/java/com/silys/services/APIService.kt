@@ -17,6 +17,7 @@ import java.net.URL
 class APIService {
 
     private val BASE_URL = "https://silys.pavazk.com/api/"
+    //private val BASE_URL = "http://192.168.1.250:500/api/"
 
     suspend fun getJson(url: String, context: Context): JSONObject {
         return connectionManager(url, null, "GET", context)

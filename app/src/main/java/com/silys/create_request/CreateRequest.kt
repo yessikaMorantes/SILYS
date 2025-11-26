@@ -1,5 +1,6 @@
 package com.silys.create_request
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -12,16 +13,24 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.silys.R
+import com.silys.home.Home
 import com.silys.services.APIService
+import com.silys.utils.TokenManager
 import com.silys.utils.UIUtils
+import com.silys.utils.UIUtils.Companion.showSnackBar
 import com.silys.utils.Utils
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
 
 class CreateRequest : AppCompatActivity() {
     lateinit var spinnerLabs: Spinner;
     lateinit var spinnerTopics: Spinner;
     lateinit var implementsList: MutableList<Spinner>;
+    lateinit var rootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +40,9 @@ class CreateRequest : AppCompatActivity() {
         val userName = findViewById<TextView>(R.id.user_name)
         val userCode = findViewById<TextView>(R.id.user_code)
         val prefixUserName = findViewById<TextView>(R.id.prefix_user_name)
+        val buttonSend = findViewById<MaterialButton>(R.id.btn_add_request)
+        rootView = findViewById(android.R.id.content)
+        buttonSend.setOnClickListener { sendRequest() }
         setToolbar()
         lifecycleScope.launch {
             val response = APIService().getJson("android/create-request", this@CreateRequest)
@@ -118,4 +130,37 @@ class CreateRequest : AppCompatActivity() {
             finish()
         }
     }
+    fun sendRequest() {
+        val name = findViewById<TextInputEditText>(R.id.name_project).text
+        val description = findViewById<TextInputEditText>(R.id.description_project).text
+
+        val laboratory = spinnerLabs.selectedItem;
+        val topic = spinnerTopics.selectedItem;
+        val listImplements = JSONArray();
+        implementsList.toMutableList().forEach { implementsList ->
+            listImplements.put(implementsList.selectedItem.toString())
+        }
+
+        val json = JSONObject().apply {
+            put("name", name)
+            put("description", description)
+            put("laboratory", laboratory)
+            put("topic", topic)
+            put("listImplements", listImplements)
+        }
+        lifecycleScope.launch {
+            val response = APIService().postJson("android/create-request", json, this@CreateRequest)
+            if (response.optString("accessToken").isNullOrEmpty()
+                || response.optString("refreshToken").isNullOrEmpty()
+            ) {
+                rootView.showSnackBar(response.optString("message"))
+            } else {
+                val intent = Intent(this@CreateRequest, Home::class.java)
+                intent.putExtra("message", response.optString("message"))
+                startActivity(intent)
+                this@CreateRequest.finish()
+            }
+        }
+    }
+
 }

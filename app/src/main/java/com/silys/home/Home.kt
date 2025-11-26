@@ -79,7 +79,7 @@ class Home : AppCompatActivity(), OnRequestClickListener {
                 e.printStackTrace()
                 Toast.makeText(this@Home, message, Toast.LENGTH_SHORT).show()
             }
-            rootView.showSnackBar("Bienvenido")
+            rootView.showSnackBar(intent.getStringExtra("message").orEmpty())
         }
 
     }

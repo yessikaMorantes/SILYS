@@ -48,6 +48,9 @@ class UIUtils {
         }
 
         fun View.showSnackBar(message: String) {
+            if(message.isBlank()){
+                return
+            }
             val snackbar = Snackbar.make(this, "", Snackbar.LENGTH_SHORT)
             val snackbarLayout = snackbar.view as ViewGroup
             val textView = snackbarLayout.findViewById<TextView>(

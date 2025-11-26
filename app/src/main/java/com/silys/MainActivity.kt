@@ -60,8 +60,7 @@ class MainActivity : ComponentActivity() {
 
     private fun login(json: JSONObject) {
         lifecycleScope.launch {
-            val api = APIService()
-            val response = api.postJson("auth/login", json, this@MainActivity)
+            val response = APIService().postJson("auth/login", json, this@MainActivity)
 
             if (response.optString("accessToken").isNullOrEmpty()
                 || response.optString("refreshToken").isNullOrEmpty()

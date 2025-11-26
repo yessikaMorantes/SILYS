@@ -75,6 +75,7 @@
                         android:paddingHorizontal="20dp">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/name_project"
                             style="@style/CustomTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -107,6 +108,7 @@
                         android:paddingVertical="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/description_project"
                             style="@style/CustomTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
