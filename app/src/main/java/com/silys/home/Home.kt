@@ -20,6 +20,8 @@ import com.silys.home.adapter.AdapterStatus
 import com.silys.home.adapter.OnRequestClickListener
 import com.silys.services.APIService
 import com.silys.utils.TokenManager
+import com.silys.utils.UIUtils.Companion.hideLoading
+import com.silys.utils.UIUtils.Companion.showLoading
 import com.silys.utils.UIUtils.Companion.showSnackBar
 import com.silys.utils.Utils
 import kotlinx.coroutines.launch
@@ -37,6 +39,7 @@ class Home : AppCompatActivity(), OnRequestClickListener {
         val userName = findViewById<TextView>(R.id.user_name)
         val userCode = findViewById<TextView>(R.id.user_code)
         val prefixUserName = findViewById<TextView>(R.id.prefix_user_name)
+        rootView.showLoading()
 
         buttons()
 
@@ -59,7 +62,6 @@ class Home : AppCompatActivity(), OnRequestClickListener {
 
 
                 rvStatus.adapter = AdapterStatus(Utils().convertJSONArrayToListJSON(response.getJSONArray("item_status")))
-                //Requests
 
                 val itemRequestList = Utils().convertJSONArrayToListJSON(response.getJSONArray("requests"))
                 if(!itemRequestList.isEmpty()){
@@ -79,9 +81,9 @@ class Home : AppCompatActivity(), OnRequestClickListener {
                 e.printStackTrace()
                 Toast.makeText(this@Home, message, Toast.LENGTH_SHORT).show()
             }
+            rootView.hideLoading()
             rootView.showSnackBar(intent.getStringExtra("message").orEmpty())
         }
-
     }
 
     fun buttons() {
@@ -95,14 +97,7 @@ class Home : AppCompatActivity(), OnRequestClickListener {
         val btnLogout = findViewById<ImageButton>(R.id.btn_toolbar)
         btnLogout?.setOnClickListener {
             lifecycleScope.launch {
-                val json = JSONObject().apply {
-                    put("refreshToken", TokenManager(this@Home).getRefreshToken())
-                }
-                val api = APIService()
-                val response = api.postJson("auth/logout", json, this@Home)
-                TokenManager(this@Home).clearTokens()
-                startActivity(Intent(this@Home, MainActivity::class.java))
-                this@Home.finish()
+                APIService().logout(this@Home, "")
             }
         }
     }

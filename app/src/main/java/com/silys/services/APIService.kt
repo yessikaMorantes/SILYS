@@ -1,5 +1,6 @@
 package com.silys.services
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -19,19 +20,30 @@ class APIService {
     private val BASE_URL = "https://silys.pavazk.com/api/"
     //private val BASE_URL = "http://192.168.1.250:500/api/"
 
-    suspend fun getJson(url: String, context: Context): JSONObject {
-        return connectionManager(url, null, "GET", context)
+    suspend fun getJson(url: String, activity: Activity): JSONObject {
+        return connectionManager(url, null, "GET", activity)
+    }
+    suspend fun logout(activity: Activity, message: String) {
+        val json = JSONObject().apply {
+            put("refreshToken", TokenManager(activity).getRefreshToken())
+        }
+        postJson("auth/logout", json, activity)
+        TokenManager(activity).clearTokens()
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.putExtra("message", message)
+        activity.startActivity(intent)
+        activity.finish()
     }
 
-    suspend fun postJson(url: String, json: JSONObject, context: Context): JSONObject {
-        return connectionManager(url, json, "POST", context)
+    suspend fun postJson(url: String, json: JSONObject, activity: Activity): JSONObject {
+        return connectionManager(url, json, "POST", activity)
     }
 
     private suspend fun connectionManager(
         url: String,
         json: JSONObject?,
         method: String,
-        context: Context
+        context: Activity
     ): JSONObject =
         withContext(Dispatchers.IO) {
 
@@ -76,6 +88,10 @@ class APIService {
                 }
 
                 val responseCode = connection.responseCode
+                if (responseCode== 402) {
+                    logout(context, "Token expirado")
+                    return@withContext JSONObject()
+                }
                 if (responseCode == 401) {
                     connection.disconnect()
                     val newJson = JSONObject().apply {

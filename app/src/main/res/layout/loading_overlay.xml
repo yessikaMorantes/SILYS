@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:lottie="http://schemas.android.com/apk/res-auto"    android:id="@+id/loadingOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AAAAAAAA"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border_round_selected">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewLoading"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            lottie:lottie_autoPlay="true"
+            lottie:lottie_loop="true"
+            lottie:lottie_rawRes="@raw/circle_loading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/loadingText" />
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/lab_icon"
+            app:layout_constraintTop_toTopOf="@+id/lottieViewLoading"
+            app:layout_constraintBottom_toBottomOf="@+id/lottieViewLoading"
+            app:layout_constraintStart_toStartOf="@+id/lottieViewLoading"
+            app:layout_constraintEnd_toEndOf="@+id/lottieViewLoading" />
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:textColor="@color/base_blue_color"
+            android:textSize="21sp"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottieViewLoading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

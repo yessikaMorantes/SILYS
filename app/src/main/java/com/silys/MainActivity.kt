@@ -10,6 +10,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.silys.home.Home
 import com.silys.services.APIService
 import com.silys.utils.TokenManager
+import com.silys.utils.UIUtils.Companion.hideLoading
+import com.silys.utils.UIUtils.Companion.showLoading
 import com.silys.utils.UIUtils.Companion.showSnackBar
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -25,9 +27,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        rootView = findViewById<View>(android.R.id.content)
+        rootView = findViewById(android.R.id.content)
         initViews()
         setupListeners()
+        rootView.showSnackBar(intent.getStringExtra("message").orEmpty())
     }
 
     private fun initViews() {
@@ -59,9 +62,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun login(json: JSONObject) {
+        rootView.showLoading()
         lifecycleScope.launch {
             val response = APIService().postJson("auth/login", json, this@MainActivity)
-
+            rootView.hideLoading()
             if (response.optString("accessToken").isNullOrEmpty()
                 || response.optString("refreshToken").isNullOrEmpty()
             ) {

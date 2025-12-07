@@ -1,12 +1,15 @@
 package com.silys.utils
 
+import android.app.Activity
 import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.view.isVisible
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.R
 import com.google.android.material.snackbar.Snackbar
 import java.lang.ref.WeakReference
@@ -72,5 +75,41 @@ class UIUtils {
             )
             snackbar.show()
         }
+        private var overlayView: View? = null
+        fun View.showLoading() {
+
+            val activity = context as? Activity ?: return
+
+            if (overlayView == null) {
+                val root = activity.findViewById<ViewGroup>(android.R.id.content)
+
+                val view = LayoutInflater.from(context)
+                    .inflate(com.silys.R.layout.loading_overlay, root, false)
+                val lottie = view.findViewById<LottieAnimationView>(com.silys.R.id.lottieViewLoading)
+                lottie.playAnimation()
+
+                view.alpha = 0f
+                root.addView(view)
+
+                overlayView = view
+            }
+
+            overlayView?.apply {
+                isVisible = true
+                animate().alpha(1f).setDuration(180).start()
+            }
+
+        }
+
+        fun View.hideLoading() {
+            overlayView?.animate()
+                ?.alpha(0f)
+                ?.setDuration(150)
+                ?.withEndAction {
+                    overlayView?.isVisible = false
+                }
+                ?.start()
+        }
+
     }
 }

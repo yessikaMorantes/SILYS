@@ -20,6 +20,8 @@ import com.silys.home.Home
 import com.silys.services.APIService
 import com.silys.utils.TokenManager
 import com.silys.utils.UIUtils
+import com.silys.utils.UIUtils.Companion.hideLoading
+import com.silys.utils.UIUtils.Companion.showLoading
 import com.silys.utils.UIUtils.Companion.showSnackBar
 import com.silys.utils.Utils
 import kotlinx.coroutines.launch
@@ -45,6 +47,7 @@ class CreateRequest : AppCompatActivity() {
         buttonSend.setOnClickListener { sendRequest() }
         setToolbar()
         lifecycleScope.launch {
+            rootView.showLoading()
             val response = APIService().getJson("android/create-request", this@CreateRequest)
             try {
                 title.text = response.optString("title")
@@ -68,6 +71,7 @@ class CreateRequest : AppCompatActivity() {
                     this@CreateRequest.finish()
                 }, 2000)
             }
+            rootView.hideLoading()
         }
     }
 
@@ -141,6 +145,11 @@ class CreateRequest : AppCompatActivity() {
             listImplements.put(implementsList.selectedItem.toString())
         }
 
+        if (name.toString().isEmpty() || description.toString().isEmpty() || listImplements.length() == 0) {
+            rootView.showSnackBar("Todos los campos son obligatorios")
+            return;
+        }
+
         val json = JSONObject().apply {
             put("name", name)
             put("description", description)
@@ -149,6 +158,7 @@ class CreateRequest : AppCompatActivity() {
             put("listImplements", listImplements)
         }
         lifecycleScope.launch {
+            rootView.showLoading()
             val response = APIService().postJson("android/create-request", json, this@CreateRequest)
             if (response.optString("accessToken").isNullOrEmpty()
                 || response.optString("refreshToken").isNullOrEmpty()
@@ -160,6 +170,7 @@ class CreateRequest : AppCompatActivity() {
                 startActivity(intent)
                 this@CreateRequest.finish()
             }
+            rootView.hideLoading()
         }
     }
 

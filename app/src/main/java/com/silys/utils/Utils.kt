@@ -4,7 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class Utils {
-    public fun convertJSONArrayToListJSON(jsonArray: JSONArray): List<JSONObject>{
+    fun convertJSONArrayToListJSON(jsonArray: JSONArray): List<JSONObject>{
         val mutableList = mutableListOf<JSONObject>()
 
         for (i in 0 until jsonArray.length()) {
@@ -13,7 +13,7 @@ class Utils {
         }
         return mutableList;
     }
-    public fun convertJSONArrayToList(jsonArray: JSONArray): List<String>{
+    fun convertJSONArrayToList(jsonArray: JSONArray): List<String>{
         val mutableList = mutableListOf<String>()
 
         for (i in 0 until jsonArray.length()) {
