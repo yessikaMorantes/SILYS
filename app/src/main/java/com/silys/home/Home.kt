@@ -1,25 +1,26 @@
 package com.silys.home
 
-import android.annotation.SuppressLint
+import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.silys.MainActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.silys.R
 import com.silys.create_request.CreateRequest
 import com.silys.home.adapter.AdapterRequest
 import com.silys.home.adapter.AdapterStatus
 import com.silys.home.adapter.OnRequestClickListener
 import com.silys.services.APIService
-import com.silys.utils.TokenManager
+import com.silys.show_request.ShowRequest
 import com.silys.utils.UIUtils.Companion.hideLoading
 import com.silys.utils.UIUtils.Companion.showLoading
 import com.silys.utils.UIUtils.Companion.showSnackBar
@@ -28,10 +29,11 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class Home : AppCompatActivity(), OnRequestClickListener {
+    private lateinit var rootView: View;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val rootView = findViewById<View>(android.R.id.content)
+        rootView = findViewById<View>(android.R.id.content)
         val rvStatus = findViewById<RecyclerView>(R.id.rv_status)
         val rvRequest = findViewById<RecyclerView>(R.id.rv_requests)
         val title = findViewById<TextView>(R.id.title)
@@ -51,9 +53,9 @@ class Home : AppCompatActivity(), OnRequestClickListener {
             this@Home,
             LinearLayoutManager.VERTICAL, false
         )
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             val response = APIService().getJson("android/home", this@Home)
-            try{
+            try {
                 title.text = response.optString("title")
                 subtitle.text = response.optString("sub_title")
                 userName.text = response.optString("user_name")
@@ -61,10 +63,12 @@ class Home : AppCompatActivity(), OnRequestClickListener {
                 prefixUserName.text = response.optString("prefix_user_name")
 
 
-                rvStatus.adapter = AdapterStatus(Utils().convertJSONArrayToListJSON(response.getJSONArray("item_status")))
+                rvStatus.adapter =
+                    AdapterStatus(Utils().convertJSONArrayToListJSON(response.getJSONArray("item_status")))
 
-                val itemRequestList = Utils().convertJSONArrayToListJSON(response.getJSONArray("requests"))
-                if(!itemRequestList.isEmpty()){
+                val itemRequestList =
+                    Utils().convertJSONArrayToListJSON(response.getJSONArray("requests"))
+                if (!itemRequestList.isEmpty()) {
                     rvRequest.adapter = AdapterRequest(itemRequestList, this@Home, this@Home)
                 } else {
                     rvRequest.visibility = View.GONE
@@ -73,9 +77,18 @@ class Home : AppCompatActivity(), OnRequestClickListener {
                     msg.visibility = View.VISIBLE
                     msg.text = response.optString("msg")
                 }
-            }catch (e: Exception){
+                findViewById<ImageButton>(R.id.btn_create_request).visibility =
+                    if (response.getBoolean("canCreate")) {
+                        View.VISIBLE
+                    } else {
+                        View.INVISIBLE
+                    }
+                if(!response.getBoolean("canCreate")){
+                    findViewById<ImageButton>(R.id.btn_create_request).setOnClickListener {  }
+                }
+            } catch (e: Exception) {
                 var message: String = response.optString("message");
-                if(message.isBlank()){
+                if (message.isBlank()) {
                     message = response.optString("error");
                 }
                 e.printStackTrace()
@@ -84,14 +97,39 @@ class Home : AppCompatActivity(), OnRequestClickListener {
             rootView.hideLoading()
             rootView.showSnackBar(intent.getStringExtra("message").orEmpty())
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Empty
+            }
+        })
+    }
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+        caller: ComponentCaller
+    ) {
+        if (requestCode != 1) {
+            return
+        }
+
+        //super.onActivityResult(requestCode, resultCode, data, caller)
+
     }
 
     fun buttons() {
         val btnCreateRequest = findViewById<ImageButton>(R.id.btn_create_request)
         btnCreateRequest?.setOnClickListener {
-            val intent = Intent(this, CreateRequest::class.java)
-            intent.putExtra("TYPE_VIEW", "create_request")
-            startActivity(intent)
+            rootView.showLoading()
+
+            val intent = Intent(this@Home, CreateRequest::class.java)
+            lifecycleScope.launch {
+                val response = APIService().getJson("android/create-request", this@Home)
+                intent.putExtra("json", response.toString())
+                startActivity(intent)
+                rootView.hideLoading()
+            }
         }
 
         val btnLogout = findViewById<ImageButton>(R.id.btn_toolbar)
@@ -103,16 +141,15 @@ class Home : AppCompatActivity(), OnRequestClickListener {
     }
 
     override fun onRequestClick(item: JSONObject) {
-        //val intent = Intent(this, ShowRequest::class.java)
-        //intent.putExtra("item_request", item)
-        //startActivity(intent)
-    }
-
-
-    @SuppressLint("GestureBackNavigation")
-    override fun onBackPressed() {
-        if(false){
-            super.onBackPressed()
+        rootView.showLoading()
+        val intent = Intent(this, ShowRequest::class.java)
+        lifecycleScope.launch {
+            val response =
+                APIService().getJson("android/view-request/${item.optString("code")}", this@Home)
+            intent.putExtra("json", response.toString())
+            startActivity(intent)
+            rootView.hideLoading()
         }
     }
+
 }

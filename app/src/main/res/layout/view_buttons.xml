@@ -9,26 +9,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:letterSpacing="0"
-        android:text="Rechazar"
-        android:textStyle="bold"
         android:layout_weight="4"
-        android:padding="12dp"/>
+        android:letterSpacing="0"
+        android:padding="12dp"
+        android:text="Rechazar"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_green"
         style="@style/CustomButtonStyleGreen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" android:letterSpacing="0"
-        android:text="Entregar"
-        android:textStyle="bold"
+        android:layout_gravity="center"
         android:layout_weight="4"
-        android:padding="12dp"/>
+        android:letterSpacing="0"
+        android:padding="12dp"
+        android:text="Entregar"
+        android:textStyle="bold" />
 
 </LinearLayout>

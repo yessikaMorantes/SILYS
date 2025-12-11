@@ -67,51 +67,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_date_request"
+                android:id="@+id/tv_extra_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="@string/example_date_request"
                 android:textColor="@color/base_blue_color"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_date_approved"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/example_date_approved"
-                android:textColor="@color/base_blue_color"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_topic_request"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/example_topic_request"
-                android:textColor="@color/base_blue_color"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_laboratory_request"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/example_laboratory_request"
-                android:textColor="@color/base_blue_color"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_description_request"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/example_description_request"
-                android:textColor="@color/base_blue_color"
-                android:textSize="15sp" />
-
-            <TextView
+                android:id="@+id/tv_label_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -133,6 +97,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_commentary"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"

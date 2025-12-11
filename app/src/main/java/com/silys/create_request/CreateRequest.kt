@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -18,7 +17,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.silys.R
 import com.silys.home.Home
 import com.silys.services.APIService
-import com.silys.utils.TokenManager
 import com.silys.utils.UIUtils
 import com.silys.utils.UIUtils.Companion.hideLoading
 import com.silys.utils.UIUtils.Companion.showLoading
@@ -46,33 +44,29 @@ class CreateRequest : AppCompatActivity() {
         rootView = findViewById(android.R.id.content)
         buttonSend.setOnClickListener { sendRequest() }
         setToolbar()
-        lifecycleScope.launch {
-            rootView.showLoading()
-            val response = APIService().getJson("android/create-request", this@CreateRequest)
-            try {
-                title.text = response.optString("title")
-                subtitle.text = response.optString("sub_title")
-                userName.text = response.optString("user_name")
-                userCode.text = response.optString("user_code")
-                prefixUserName.text = response.optString("prefix_user_name")
+        val response = JSONObject(intent.getStringExtra("json").orEmpty())
+        try {
+            title.text = response.optString("title")
+            subtitle.text = response.optString("sub_title")
+            userName.text = response.optString("user_name")
+            userCode.text = response.optString("user_code")
+            prefixUserName.text = response.optString("prefix_user_name")
 
-
-                setSpinnerLaboratories(Utils().convertJSONArrayToList(response.getJSONArray("listLaboratories")))
-                setSpinnerTopics(Utils().convertJSONArrayToList(response.getJSONArray("listTopics")))
-                addFieldForImplement(Utils().convertJSONArrayToList(response.getJSONArray("listItems")))
-            } catch (e: Exception) {
-                var message: String = response.optString("message");
-                if (message.isBlank()) {
-                    message = response.optString("error");
-                }
-                e.printStackTrace()
-                Toast.makeText(this@CreateRequest, message, Toast.LENGTH_SHORT).show()
-                Handler().postDelayed({
-                    this@CreateRequest.finish()
-                }, 2000)
+            setSpinnerLaboratories(Utils().convertJSONArrayToList(response.getJSONArray("listLaboratories")))
+            setSpinnerTopics(Utils().convertJSONArrayToList(response.getJSONArray("listTopics")))
+            addFieldForImplement(Utils().convertJSONArrayToList(response.getJSONArray("listItems")))
+        } catch (e: Exception) {
+            var message: String = response.optString("message");
+            if (message.isBlank()) {
+                message = response.optString("error");
             }
-            rootView.hideLoading()
+            e.printStackTrace()
+            rootView.showSnackBar(message)
+            Handler().postDelayed({
+                this@CreateRequest.finish()
+            }, 2000)
         }
+
     }
 
     fun setSpinnerLaboratories(list: List<String>) {
@@ -104,7 +98,7 @@ class CreateRequest : AppCompatActivity() {
 
         val adapter = ArrayAdapter(this, R.layout.tv_spinner, list)
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return;
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -134,6 +128,7 @@ class CreateRequest : AppCompatActivity() {
             finish()
         }
     }
+
     fun sendRequest() {
         val name = findViewById<TextInputEditText>(R.id.name_project).text
         val description = findViewById<TextInputEditText>(R.id.description_project).text
@@ -145,7 +140,9 @@ class CreateRequest : AppCompatActivity() {
             listImplements.put(implementsList.selectedItem.toString())
         }
 
-        if (name.toString().isEmpty() || description.toString().isEmpty() || listImplements.length() == 0) {
+        if (name.toString().isEmpty() || description.toString()
+                .isEmpty() || listImplements.length() == 0
+        ) {
             rootView.showSnackBar("Todos los campos son obligatorios")
             return;
         }
@@ -160,17 +157,12 @@ class CreateRequest : AppCompatActivity() {
         lifecycleScope.launch {
             rootView.showLoading()
             val response = APIService().postJson("android/create-request", json, this@CreateRequest)
-            if (response.optString("accessToken").isNullOrEmpty()
-                || response.optString("refreshToken").isNullOrEmpty()
-            ) {
-                rootView.showSnackBar(response.optString("message"))
-            } else {
-                val intent = Intent(this@CreateRequest, Home::class.java)
-                intent.putExtra("message", response.optString("message"))
-                startActivity(intent)
-                this@CreateRequest.finish()
-            }
             rootView.hideLoading()
+            val intent = Intent(this@CreateRequest, Home::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("message", response.optString("message"))
+            startActivity(intent)
+            this@CreateRequest.finish()
         }
     }
 
